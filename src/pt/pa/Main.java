@@ -11,5 +11,9 @@ public class Main {
 
         //TODO: testar implementação
 
+        queue.enqueue(2);
+        queue.enqueue(5);
+        System.out.println(queue.front());
+
     }
 }
