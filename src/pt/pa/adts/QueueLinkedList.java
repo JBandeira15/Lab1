@@ -12,10 +12,11 @@ public class QueueLinkedList<T> implements Queue<T> {
 
     public QueueLinkedList() {
         //TODO: construtor deve inicializar uma fila vazia
-        this.header = new Node(null, null, null);
-        this.trailer = new Node(null, header, null);
+        this.trailer = new Node(null, null, null);
+        this.header = new Node(null, trailer, null);
 
-        this.header.next = trailer;
+
+        this.trailer.next = header;
         this.size = 0;
 
     }
@@ -23,12 +24,13 @@ public class QueueLinkedList<T> implements Queue<T> {
     @Override
     public void enqueue(T element) throws FullQueueException {
 
-        Node newNode = new Node(element, header, header.next);
-        header.next.prev = newNode;
-        //header.next = newNode;
+        Node newNode = new Node(element, trailer, trailer.next);
+        trailer.next.prev = newNode; //??????????????????????
+        trailer.next = newNode;
 
 
         this.size++;
+
 
     }
 
@@ -36,16 +38,21 @@ public class QueueLinkedList<T> implements Queue<T> {
     public T dequeue() throws EmptyQueueException{
         if(isEmpty()) throw new EmptyQueueException();
 
+        T elem = header.prev.element;
 
+        header = header.prev;
 
-        return null;
+        size--;
+
+        return elem;
     }
 
     @Override
     public T front() throws EmptyQueueException{
+
         if(isEmpty()) throw new EmptyQueueException();
 
-        return trailer.prev.element;
+        return header.prev.element;
     }
 
     @Override
@@ -60,6 +67,10 @@ public class QueueLinkedList<T> implements Queue<T> {
 
     @Override
     public void clear() {
+
+        while(!isEmpty()){
+            dequeue();
+        }
 
     }
 
