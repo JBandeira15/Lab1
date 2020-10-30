@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Queue<Integer> queue = new QueueLinkedList<>();
+        Queue<Integer> queue = new QueueLinkedList<>(10);
 
         //TODO: testar implementação
         System.out.println("Tamanho atual da fila: " + queue.size());

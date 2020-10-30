@@ -9,9 +9,12 @@ public class QueueLinkedList<T> implements Queue<T> {
 
     private Node header, trailer;
     private int size;
+    private int capacity;
 
-    public QueueLinkedList() {
+    public QueueLinkedList(int capacity) {
         //TODO: construtor deve inicializar uma fila vazia
+        clear();
+        this.capacity = capacity;
         this.trailer = new Node(null, null, null);
         this.header = new Node(null, trailer, null);
 
@@ -23,9 +26,10 @@ public class QueueLinkedList<T> implements Queue<T> {
 
     @Override
     public void enqueue(T element) throws FullQueueException {
+        if(size() == capacity) throw new FullQueueException();
 
         Node newNode = new Node(element, trailer, trailer.next);
-        trailer.next.prev = newNode; //??????????????????????
+        trailer.next.prev = newNode;
         trailer.next = newNode;
 
 
